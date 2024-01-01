@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <script src="../async-request-module-v0.1.js"></script>
+</header>
+<body>
+    <div>
+        TEST IS COMMING...
+    </div>
+</body>
+<script>
+    var successFn = function(data) {
+        console.log(data)
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const as = new AsyncRequestSender();
+        console.log("All Ready")
+        // .send()
+        var tmpAs = as.setUrl("https://reqres.in/api/unknown/23")
+            //.setUrlParam("pages", 2)
+            .setSuccessFn(successFn)
+            .setFailFn((error) => {
+                console.log("REJECT ERROR", error)
+            })
+            .setFinallyFn(() => {
+                console.log("Finally Test")
+            })
+
+        var intervalAs = setInterval(function() {
+            tmpAs.send()
+            console.log(" -- TEST -- ")
+        }, 3000)
+    });
+</script>
+</html>
